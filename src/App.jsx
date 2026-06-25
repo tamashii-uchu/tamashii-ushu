@@ -259,7 +259,17 @@ export default function App(){
   const resetAisho=()=>{setAishoStep(1);setResultA(null);setResultB(null);setAishoResult(null);};
   const tabStyle=(tab)=>({flex:1,padding:"14px 8px",background:activeTab===tab?`linear-gradient(135deg,#c8a030,#e0c060)`:"transparent",border:"none",borderBottom:activeTab===tab?"none":`1px solid ${C.borderGold}`,color:activeTab===tab?"#2a2010":C.muted,fontSize:"11px",letterSpacing:"0.2em",cursor:"pointer",fontFamily:"inherit",fontWeight:"600"});
   return(<div style={{minHeight:"100vh",background:`linear-gradient(160deg,#faf6ee,#f5edd8,#faf6ee)`,color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif"}}>
-    <div style={{textAlign:"center",padding:"52px 24px 32px",borderBottom:`1px solid ${C.borderGold}`,background:`linear-gradient(180deg,#f0e8d0 0%,#faf6ee 60%,transparent 100%)`}}>
+    <div style={{textAlign:"center",padding:"52px 24px 32px",borderBottom:`1px solid ${C.borderGold}`,background:`linear-gradient(180deg,#f0e8d0 0%,#faf6ee 60%,transparent 100%)`,position:"relative",overflow:"hidden"}}>
+      <div style={{position:"absolute",top:0,left:0,right:0,height:"2px",background:`linear-gradient(90deg,transparent 0%,${C.gold} 20%,#c8a030 50%,${C.gold} 80%,transparent 100%)`}}/>
+      <div style={{marginBottom:"16px",display:"flex",justifyContent:"center"}}>
+        <svg width="180" height="90" viewBox="0 0 180 90">
+          <defs><linearGradient id="symGold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#f5d060"/><stop offset="100%" stopColor="#c8a030"/></linearGradient></defs>
+          {[8,16,24].map((r,i)=><circle key={i} cx="90" cy="48" r={r} fill="none" stroke="#c8a030" strokeWidth="0.7" opacity={0.9-i*0.25} strokeDasharray={i>0?"4,3":"none"}/>)}
+          <circle cx="90" cy="48" r="3" fill="#f5d060"/>
+          <path d="M40,28 L42,34 L48,34 L43,38 L45,44 L40,40 L35,44 L37,38 L32,34 L38,34Z" fill="none" stroke="url(#symGold)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+          {[[115,22],[132,35],[122,52],[140,20],[145,42],[128,60],[108,65]].map(([x,y],i)=><g key={i}><line x1={x} y1={y-4} x2={x} y2={y+4} stroke="#c8a030" strokeWidth="0.9" strokeLinecap="round" opacity="0.65"/><line x1={x-4} y1={y} x2={x+4} y2={y} stroke="#c8a030" strokeWidth="0.9" strokeLinecap="round" opacity="0.65"/></g>)}
+        </svg>
+      </div>
       <h1 style={{fontSize:"clamp(24px,5vw,42px)",fontWeight:"700",letterSpacing:"0.2em",background:`linear-gradient(135deg,#8a6010 0%,#d4aa40 40%,#f5d060 70%,#c8a030 100%)`,WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent",margin:"0 0 10px"}}>魂宇宙学</h1>
       <p style={{fontSize:"10px",color:C.gold,letterSpacing:"0.4em",margin:0,opacity:0.8}}>TAMASHII UCHU GAKU</p>
     </div>
