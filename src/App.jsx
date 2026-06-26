@@ -263,14 +263,15 @@ export default function App(){
     .no-print { display: none !important; }
     button { display: none !important; }
     .tab-bar { display: none !important; }
-    .print-header { 
+    .print-header,
+    .print-header *,
+    .print-header::before,
+    .print-header::after { 
       background: white !important; 
       background-image: none !important;
       background-color: white !important;
-    }
-    .print-header * {
-      background: transparent !important;
-      background-image: none !important;
+      box-shadow: none !important;
+      -webkit-box-shadow: none !important;
     }
     * { 
       -webkit-print-color-adjust: exact !important;
@@ -282,7 +283,7 @@ export default function App(){
     }
   }
 `}</style><div style={{minHeight:"100vh",background:`linear-gradient(160deg,#faf6ee,#f5edd8,#faf6ee)`,color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif"}}>
-    <div style={{textAlign:"center",padding:"52px 24px 32px",borderBottom:`1px solid ${C.borderGold}`,background:`linear-gradient(180deg,#f0e8d0 0%,#faf6ee 60%,transparent 100%)`,position:"relative",overflow:"hidden"}}>
+    <div className="print-header" style={{textAlign:"center",padding:"52px 24px 32px",borderBottom:`1px solid ${C.borderGold}`,background:`linear-gradient(180deg,#f0e8d0 0%,#faf6ee 60%,transparent 100%)`,position:"relative",overflow:"hidden"}}>
       <div style={{position:"absolute",top:0,left:0,right:0,height:"2px",background:`linear-gradient(90deg,transparent 0%,${C.gold} 20%,#c8a030 50%,${C.gold} 80%,transparent 100%)`}}/>
       <div style={{marginBottom:"16px",display:"flex",justifyContent:"center"}}>
         <svg width="180" height="90" viewBox="0 0 180 90">
