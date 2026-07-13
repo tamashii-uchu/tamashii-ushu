@@ -310,8 +310,8 @@ function AishoResult({resultA,resultB,aisho}){
 
 
 function CommAishoTab({C}){
-  const [typeA,setTypeA]=React.useState("");
-  const [typeB,setTypeB]=React.useState("");
+  const [typeA,setTypeA]=useState("");
+  const [typeB,setTypeB]=useState("");
   const rel=typeA&&typeB?getCommRelation(typeA,typeB):null;
   const teamColors={"フロント":"#C9A84C","クリエイト":"#8B7355","サポート":"#6B8E8E"};
   const teams={"フロント":["惑星","流星","光","太陽"],"クリエイト":["火","風","大地","銀河"],"サポート":["海","虹","星","月"]};
@@ -362,7 +362,8 @@ export default function App(){
   const handleAishoA=(name,y,m,d)=>{setResultA(calculate(name,y,m,d));setAishoStep(2);};
   const handleAishoB=(name,y,m,d)=>{const rB=calculate(name,y,m,d);setResultB(rB);setAishoAnim(false);setTimeout(()=>{setAishoResult(calculateAisho(resultA,rB));setAishoStep(3);setAishoAnim(true);},50);};
   const resetAisho=()=>{setAishoStep(1);setResultA(null);setResultB(null);setAishoResult(null);};
-  const tabStyle=(tab)=>({flex:1,padding:"14px 8px",background:activeTab===tab?`linear-gradient(135deg,#c8a030,#e0c060)`:"transparent",border:"none",borderBottom:activeTab===tab?"none":`1px solid ${C.borderGold}`,color:activeTab===tab?"#2a2010":C.muted,fontSize:"11px",letterSpacing:"0.2em",cursor:"pointer",fontFamily:"inherit",fontWeight:"600"});
+  const tabColors={"kojin":["#c8a030","#e0c060","#2a2010"],"aisho":["#1a3a5a","#2a5a8a","#ffffff"],"comm_aisho":["#2a5a2a","#4a8a4a","#ffffff"]};
+  const tabStyle=(tab)=>{const[bg1,bg2,col]=tabColors[tab]||["#c8a030","#e0c060","#2a2010"];return{flex:1,padding:"14px 8px",background:activeTab===tab?`linear-gradient(135deg,${bg1},${bg2})`:"transparent",border:"none",borderBottom:activeTab===tab?"none":`1px solid ${C.borderGold}`,color:activeTab===tab?col:C.muted,fontSize:"11px",letterSpacing:"0.2em",cursor:"pointer",fontFamily:"inherit",fontWeight:"600"}};
   return(<><style>{`
   @media print {
     .no-print { display: none !important; }
