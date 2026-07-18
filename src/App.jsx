@@ -442,6 +442,9 @@ export default function App(){
       box-shadow: none !important;
     }
     .print-header img {
+      max-height: 60px !important;
+      width: auto !important;
+      margin: 0 auto !important;
       -webkit-mask-image: none !important;
       mask-image: none !important;
     }
@@ -452,6 +455,9 @@ export default function App(){
     .print-fit > * {
       break-inside: avoid;
       -webkit-column-break-inside: avoid;
+    }
+    .print-fit *, .print-fit {
+      box-shadow: none !important;
     }
     * { 
       -webkit-print-color-adjust: exact !important;
