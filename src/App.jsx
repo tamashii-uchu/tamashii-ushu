@@ -206,86 +206,96 @@ function InputForm({onSubmit,buttonLabel,accent}){
 }
 
 function KojinResult({result}){
-  const card={background:`linear-gradient(135deg,#ffffff,#fdf8f0)`,border:`1px solid ${C.borderGold}`,borderRadius:"18px",padding:"22px",marginBottom:"14px",boxShadow:`0 8px 32px rgba(200,160,48,0.15)`};
+  const MYST={bg:"linear-gradient(165deg,#1c2b3d 0%,#22384a 35%,#1a3d3f 70%,#16302f 100%)",card:"rgba(255,255,255,0.06)",border:"rgba(212,170,64,0.28)",text:"#f5efd8",muted:"#9fc9c4",gold:"#f0d68a",teal:"#7fe0c8",purple:"#c3aee8",pink:"#f0a8c8"};
+  const stars={position:"absolute",inset:0,opacity:0.5,backgroundImage:"radial-gradient(1px 1px at 8% 12%, #fff, transparent),radial-gradient(1px 1px at 32% 28%, #fff, transparent),radial-gradient(1px 1px at 55% 8%, #fff, transparent),radial-gradient(1px 1px at 78% 40%, #fff, transparent),radial-gradient(1px 1px at 20% 55%, #fff, transparent),radial-gradient(1px 1px at 90% 20%, #fff, transparent),radial-gradient(1px 1px at 65% 65%, #fff, transparent),radial-gradient(1px 1px at 12% 80%, #fff, transparent)",pointerEvents:"none"};
+  const card={background:MYST.card,backdropFilter:"blur(3px)",WebkitBackdropFilter:"blur(3px)",border:`1px solid ${MYST.border}`,borderRadius:"16px",padding:"20px",marginBottom:"14px"};
   const currentYear=new Date().getFullYear();
   const cycles=[];
   for(let y=currentYear-1;y<=currentYear+3;y++){const{cyclePos,rhythm}=getSoulCycle(result.year,y,result.waveBase,result.isUchuType);cycles.push({year:y,cyclePos,rhythm});}
   const EMOJI={"準備":"🌱","実行":"🌸","観察":"🍂","決断":"⭐"};
   const LABEL={"準備":"種まき","実行":"開花","観察":"収穫","決断":"選択"};
-  return(<div>
-    <div style={{textAlign:"center",padding:"32px 24px",background:`linear-gradient(160deg,#f5edd8,#fdf8f0)`,borderRadius:"18px",border:`1px solid ${C.borderGold}`,marginBottom:"8px"}}>
-      <div style={{fontSize:"10px",color:C.muted,letterSpacing:"0.4em",marginBottom:"12px"}}>鑑定結果 — Soul Reading</div>
-      <div style={{fontSize:"clamp(20px,5vw,28px)",fontWeight:"600",color:"#2a2010",letterSpacing:"0.15em",marginBottom:"8px",fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif"}}>{result.name} 様</div>
-      <div style={{fontSize:"13px",color:C.muted}}>{result.year}年 {result.month}月 {result.day}日生まれ</div>
-      <div style={{display:"inline-block",marginTop:"12px",padding:"4px 16px",border:`1px solid ${C.borderGold}`,fontSize:"11px",color:C.gold,letterSpacing:"0.2em"}}>{result.typeLabel}</div>
+  return(<div className="kr-outer" style={{background:MYST.bg,borderRadius:"22px",padding:"32px 20px 26px",position:"relative",overflow:"hidden"}}>
+    <div style={stars}/>
+    <div style={{position:"relative",zIndex:1}}>
+    <div style={{width:"56px",height:"56px",margin:"0 auto 16px",position:"relative"}}>
+      <div style={{position:"absolute",inset:0,border:`1px solid rgba(212,170,64,0.5)`,borderRadius:"50%"}}/>
+      <div style={{position:"absolute",inset:"10px",border:`1px solid rgba(212,170,64,0.3)`,borderRadius:"50%"}}/>
+      <div style={{position:"absolute",top:"50%",left:"50%",width:"5px",height:"5px",background:MYST.gold,borderRadius:"50%",transform:"translate(-50%,-50%)",boxShadow:`0 0 8px 2px rgba(240,214,138,0.6)`}}/>
     </div>
-    <SectionTitle>✦ 魂の才能</SectionTitle>
+    <div style={{textAlign:"center",marginBottom:"8px"}}>
+      <div style={{fontSize:"10px",color:MYST.muted,letterSpacing:"0.35em",marginBottom:"12px"}}>鑑定結果 — Soul Reading</div>
+      <div style={{fontSize:"clamp(20px,5vw,28px)",fontWeight:"600",color:MYST.text,letterSpacing:"0.1em",marginBottom:"8px",fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif"}}>{result.name} 様</div>
+      <div style={{fontSize:"13px",color:MYST.muted}}>{result.year}年 {result.month}月 {result.day}日生まれ</div>
+      <div style={{display:"inline-block",marginTop:"12px",padding:"4px 16px",border:`1px solid ${MYST.border}`,borderRadius:"20px",fontSize:"11px",color:MYST.gold,letterSpacing:"0.2em"}}>{result.typeLabel}</div>
+    </div>
+    <div style={{fontSize:"10px",letterSpacing:"0.4em",color:MYST.gold,margin:"32px 0 16px",display:"flex",alignItems:"center",gap:"12px",opacity:0.9}}>✦ 魂の才能<div style={{flex:1,height:"1px",background:`linear-gradient(90deg,${MYST.gold},transparent)`}}/></div>
     <div style={{...card,textAlign:"center"}}>
-      <div style={{fontSize:"10px",color:C.muted,letterSpacing:"0.2em",marginBottom:"6px"}}>魂の才能</div>
-      <div style={{fontSize:"clamp(20px,5vw,30px)",fontWeight:"600",color:"#2a2010"}}>{result.honshitsu}</div>
-      <div style={{marginTop:"12px",padding:"6px 16px",background:"rgba(200,168,74,0.06)",border:`1px solid ${C.borderGold}`,display:"inline-block"}}>
-        <span style={{fontSize:"10px",color:C.muted}}>魂の役割　</span><span style={{color:"#2a2010",fontWeight:"400"}}>{result.keiji}</span>
+      <div style={{fontSize:"10px",color:MYST.muted,letterSpacing:"0.2em",marginBottom:"6px"}}>魂の才能</div>
+      <div style={{fontSize:"clamp(20px,5vw,30px)",fontWeight:"600",color:MYST.text}}>{result.honshitsu}</div>
+      <div style={{marginTop:"12px",padding:"6px 16px",background:"rgba(255,255,255,0.04)",border:`1px solid ${MYST.border}`,borderRadius:"20px",display:"inline-block"}}>
+        <span style={{fontSize:"10px",color:MYST.muted}}>魂の役割　</span><span style={{color:MYST.text,fontWeight:"400"}}>{result.keiji}</span>
       </div>
     </div>
-    <SectionTitle>✦ コミュニケーション</SectionTitle>
+    <div style={{fontSize:"10px",letterSpacing:"0.4em",color:MYST.gold,margin:"32px 0 16px",display:"flex",alignItems:"center",gap:"12px",opacity:0.9}}>✦ コミュニケーション<div style={{flex:1,height:"1px",background:`linear-gradient(90deg,${MYST.gold},transparent)`}}/></div>
     <div style={{...card,textAlign:"center"}}>
-      <div style={{fontSize:"10px",color:C.muted,marginBottom:"8px"}}>コミュニケーションタイプ</div>
+      <div style={{fontSize:"10px",color:MYST.muted,marginBottom:"8px"}}>コミュニケーションタイプ</div>
       <div style={{fontSize:"40px",marginBottom:"8px"}}>{ANIMAL_EMOJI[result.dobutsu]||"✨"}</div>
-      <div style={{fontSize:"clamp(20px,5vw,28px)",fontWeight:"600"}}>{result.dobutsu}</div>
-      <div style={{display:"inline-block",marginTop:"10px",padding:"4px 14px",border:`1px solid ${C.borderGold}`,fontSize:"11px",color:C.gold,letterSpacing:"0.2em"}}>{result.animalType}</div>
+      <div style={{fontSize:"clamp(20px,5vw,28px)",fontWeight:"600",color:MYST.text}}>{result.dobutsu}</div>
+      <div style={{display:"inline-block",marginTop:"10px",padding:"4px 14px",border:`1px solid ${MYST.border}`,borderRadius:"20px",fontSize:"11px",color:MYST.gold,letterSpacing:"0.2em"}}>{result.animalType}</div>
     </div>
-    <SectionTitle>✦ 魂の成長テーマ</SectionTitle>
+    <div style={{fontSize:"10px",letterSpacing:"0.4em",color:MYST.gold,margin:"32px 0 16px",display:"flex",alignItems:"center",gap:"12px",opacity:0.9}}>✦ 魂の成長テーマ<div style={{flex:1,height:"1px",background:`linear-gradient(90deg,${MYST.gold},transparent)`}}/></div>
     <div style={card}>
-      <div style={{fontSize:"10px",color:C.muted,marginBottom:"8px"}}>魂の成長テーマ</div>
-      <div style={{fontSize:"clamp(20px,5vw,28px)",fontWeight:"600",color:C.teal}}>{result.konjoKadai}<span style={{color:C.purple,fontSize:"clamp(16px,4vw,22px)"}}>（{result.kadaiWord}）</span></div>
-      {result.shadowKonjoKadai&&<div style={{marginTop:"12px",paddingTop:"12px",borderTop:`1px solid rgba(212,170,64,0.2)`}}><div style={{fontSize:"10px",color:C.muted,marginBottom:"8px"}}>魂の成長テーマ（影）</div><div style={{fontSize:"clamp(16px,4vw,22px)",fontWeight:"600",color:C.teal}}>{result.shadowKonjoKadai}<span style={{color:C.purple}}>（{result.shadowKadaiWord}）</span></div></div>}
-      <div style={{marginTop:"16px"}}><div style={{display:"flex",justifyContent:"space-between",fontSize:"11px",color:C.muted,marginBottom:"6px"}}><span>魂の年齢</span><span style={{fontSize:"14px",fontWeight:"400",color:C.accent}}>{result.tamashiiAge}歳</span></div><div style={{height:"4px",background:"#ede0c0",borderRadius:"6px",overflow:"hidden"}}><div style={{height:"100%",width:`${result.wavePct}%`,background:`linear-gradient(90deg,${C.goldDim},${C.goldLight})`}}/></div></div>
+      <div style={{fontSize:"10px",color:MYST.muted,marginBottom:"8px"}}>魂の成長テーマ</div>
+      <div style={{fontSize:"clamp(20px,5vw,28px)",fontWeight:"600",color:MYST.teal}}>{result.konjoKadai}<span style={{color:MYST.purple,fontSize:"clamp(16px,4vw,22px)"}}>（{result.kadaiWord}）</span></div>
+      {result.shadowKonjoKadai&&<div style={{marginTop:"12px",paddingTop:"12px",borderTop:`1px solid ${MYST.border}`}}><div style={{fontSize:"10px",color:MYST.muted,marginBottom:"8px"}}>魂の成長テーマ（影）</div><div style={{fontSize:"clamp(16px,4vw,22px)",fontWeight:"600",color:MYST.teal}}>{result.shadowKonjoKadai}<span style={{color:MYST.purple}}>（{result.shadowKadaiWord}）</span></div></div>}
+      <div style={{marginTop:"16px"}}><div style={{display:"flex",justifyContent:"space-between",fontSize:"11px",color:MYST.muted,marginBottom:"6px"}}><span>魂の年齢</span><span style={{fontSize:"14px",fontWeight:"400",color:MYST.gold}}>{result.tamashiiAge}歳</span></div><div style={{height:"4px",background:"rgba(255,255,255,0.1)",borderRadius:"6px",overflow:"hidden"}}><div style={{height:"100%",width:`${result.wavePct}%`,background:`linear-gradient(90deg,${MYST.gold},${MYST.teal})`}}/></div></div>
     </div>
-    <SectionTitle>✦ 基本資質</SectionTitle>
+    <div style={{fontSize:"10px",letterSpacing:"0.4em",color:MYST.gold,margin:"32px 0 16px",display:"flex",alignItems:"center",gap:"12px",opacity:0.9}}>✦ 基本資質<div style={{flex:1,height:"1px",background:`linear-gradient(90deg,${MYST.gold},transparent)`}}/></div>
     <div style={{...card,marginBottom:"12px"}}>
-      <div style={{fontSize:"10px",color:C.muted,letterSpacing:"0.2em",marginBottom:"10px"}}>カルマ（{result.kakoTeemas.length}つ）</div>
+      <div style={{fontSize:"10px",color:MYST.muted,letterSpacing:"0.2em",marginBottom:"10px"}}>カルマ（{result.kakoTeemas.length}つ）</div>
       <div style={{display:"flex",flexWrap:"wrap",gap:"8px"}}>
-        {result.kakoTeemas.map((t,i)=><div key={i} style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(122,74,154,0.12)",border:`1px solid ${C.purple}`,color:C.purple,fontSize:"13px",fontWeight:"400"}}>{t}</div>)}
-        {result.shadowTeema&&!result.isMu&&<div style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(122,74,154,0.06)",border:`1px dashed ${C.purple}`,color:C.purple,fontSize:"13px",fontWeight:"400"}}>{result.shadowTeema}</div>}
+        {result.kakoTeemas.map((t,i)=><div key={i} style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(195,174,232,0.12)",border:`1px solid ${MYST.purple}`,color:MYST.purple,fontSize:"13px",fontWeight:"400"}}>{t}</div>)}
+        {result.shadowTeema&&!result.isMu&&<div style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(195,174,232,0.06)",border:`1px dashed ${MYST.purple}`,color:MYST.purple,fontSize:"13px",fontWeight:"400"}}>{result.shadowTeema}</div>}
       </div>
     </div>
     <div style={{...card,marginBottom:"12px"}}>
-      <div style={{fontSize:"10px",color:C.muted,letterSpacing:"0.2em",marginBottom:"10px"}}>守護神（{result.guardians.length}柱）</div>
+      <div style={{fontSize:"10px",color:MYST.muted,letterSpacing:"0.2em",marginBottom:"10px"}}>守護神（{result.guardians.length}柱）</div>
       <div style={{display:"flex",flexWrap:"wrap",gap:"8px"}}>
-        {result.guardians.map((g,i)=><div key={i} style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(201,168,76,0.12)",border:`1px solid ${C.gold}`,color:"#2a2010",fontSize:"13px",fontWeight:"400"}}>{g}</div>)}
-        {result.shadowGuardian&&!result.isMu&&<div style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(201,168,76,0.06)",border:`1px dashed ${C.gold}`,color:"#2a2010",fontSize:"13px",fontWeight:"400"}}>{result.shadowGuardian}</div>}
+        {result.guardians.map((g,i)=><div key={i} style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(240,214,138,0.12)",border:`1px solid ${MYST.gold}`,color:MYST.gold,fontSize:"13px",fontWeight:"400"}}>{g}</div>)}
+        {result.shadowGuardian&&!result.isMu&&<div style={{padding:"5px 14px",borderRadius:"20px",background:"rgba(240,214,138,0.06)",border:`1px dashed ${MYST.gold}`,color:MYST.gold,fontSize:"13px",fontWeight:"400"}}>{result.shadowGuardian}</div>}
       </div>
     </div>
     <div style={{...card,padding:"0"}}>
-      {[{label:"魂の個性",value:result.kishitsu.join(" / "),color:C.text},{label:"魂の基準",value:result.tokusei.join(" / "),color:C.text},{label:"インナーチャイルド",value:result.kanjo.map(k=>INNER_CHILD_SOLUTION[k]||k).join(" / "),color:C.pink},...(result.hasShadow?[{label:"無 / 影",value:`無(${result.muVal}) / 影(${result.shadowVal})`,color:C.muted}]:[])].map((row,i,arr)=>(
-        <div key={i} style={{display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:i<arr.length-1?`1px solid rgba(212,170,64,0.15)`:"none"}}>
-          <div style={{fontSize:"10px",color:C.muted,letterSpacing:"0.15em",width:"120px",flexShrink:0}}>{row.label}</div>
+      {[{label:"魂の個性",value:result.kishitsu.join(" / "),color:MYST.text},{label:"魂の基準",value:result.tokusei.join(" / "),color:MYST.text},{label:"インナーチャイルド",value:result.kanjo.map(k=>INNER_CHILD_SOLUTION[k]||k).join(" / "),color:MYST.pink},...(result.hasShadow?[{label:"無 / 影",value:`無(${result.muVal}) / 影(${result.shadowVal})`,color:MYST.muted}]:[])].map((row,i,arr)=>(
+        <div key={i} style={{display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:i<arr.length-1?`1px solid ${MYST.border}`:"none"}}>
+          <div style={{fontSize:"10px",color:MYST.muted,letterSpacing:"0.15em",width:"120px",flexShrink:0}}>{row.label}</div>
           <div style={{fontSize:"14px",fontWeight:"400",color:row.color,flex:1}}>{row.value}</div>
         </div>
       ))}
     </div>
-    <SectionTitle>✦ 魂の求め</SectionTitle>
+    <div style={{fontSize:"10px",letterSpacing:"0.4em",color:MYST.gold,margin:"32px 0 16px",display:"flex",alignItems:"center",gap:"12px",opacity:0.9}}>✦ 魂の求め<div style={{flex:1,height:"1px",background:`linear-gradient(90deg,${MYST.gold},transparent)`}}/></div>
     <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"14px"}}>
-      <div style={{...card,background:"linear-gradient(160deg,#fdf8f0,#f5edd8)"}}><div style={{fontSize:"10px",color:C.muted,marginBottom:"6px"}}>理想（陽）</div><div style={{fontWeight:"600",fontSize:"16px"}}>{result.pwData.表}</div></div>
-      <div style={{...card,background:"#f8f3e8"}}><div style={{fontSize:"10px",color:C.muted,marginBottom:"6px"}}>課題（陰）</div><div style={{fontWeight:"600",fontSize:"16px",color:C.muted}}>{result.pwData.裏}</div></div>
+      <div style={card}><div style={{fontSize:"10px",color:MYST.muted,marginBottom:"6px"}}>理想（陽）</div><div style={{fontWeight:"600",fontSize:"16px",color:MYST.text}}>{result.pwData.表}</div></div>
+      <div style={card}><div style={{fontSize:"10px",color:MYST.muted,marginBottom:"6px"}}>課題（陰）</div><div style={{fontWeight:"600",fontSize:"16px",color:MYST.muted}}>{result.pwData.裏}</div></div>
     </div>
-    <SectionTitle>✦ 魂のサイクル</SectionTitle>
+    <div style={{fontSize:"10px",letterSpacing:"0.4em",color:MYST.gold,margin:"32px 0 16px",display:"flex",alignItems:"center",gap:"12px",opacity:0.9}}>✦ 魂のサイクル<div style={{flex:1,height:"1px",background:`linear-gradient(90deg,${MYST.gold},transparent)`}}/></div>
     <div style={{...card,overflowX:"auto"}}>
       <div style={{display:"flex",gap:"6px",paddingBottom:"8px"}}>
-        {cycles.map((c,i)=>{const isNow=c.year===currentYear;const color=RHYTHM_COLOR[c.rhythm]||C.accent;return(<div key={i} style={{flex:"0 0 auto",textAlign:"center",minWidth:"72px"}}><div style={{fontSize:"10px",color:isNow?C.gold:C.muted,fontWeight:isNow?"700":"400",marginBottom:"6px"}}>{c.year}</div><div style={{padding:"12px 6px",borderRadius:"16px",background:isNow?`rgba(212,170,64,0.15)`:"#f5edd8",border:isNow?`2px solid ${C.gold}`:`1px solid #e8d890`,position:"relative"}}>{isNow&&<div style={{position:"absolute",top:"-10px",left:"50%",transform:"translateX(-50%)",fontSize:"9px",color:C.gold,fontWeight:"600",whiteSpace:"nowrap"}}>NOW</div>}<div style={{fontSize:"22px",marginBottom:"4px"}}>{EMOJI[c.rhythm]}</div><div style={{fontSize:"11px",fontWeight:"600",color}}>{LABEL[c.rhythm]}</div></div></div>);})}
+        {cycles.map((c,i)=>{const isNow=c.year===currentYear;const color=RHYTHM_COLOR[c.rhythm]||MYST.gold;return(<div key={i} style={{flex:"0 0 auto",textAlign:"center",minWidth:"72px"}}><div style={{fontSize:"10px",color:isNow?MYST.gold:MYST.muted,fontWeight:isNow?"700":"400",marginBottom:"6px"}}>{c.year}</div><div style={{padding:"12px 6px",borderRadius:"16px",background:isNow?`rgba(240,214,138,0.15)`:"rgba(255,255,255,0.04)",border:isNow?`2px solid ${MYST.gold}`:`1px solid rgba(255,255,255,0.12)`,position:"relative"}}>{isNow&&<div style={{position:"absolute",top:"-10px",left:"50%",transform:"translateX(-50%)",fontSize:"9px",color:MYST.gold,fontWeight:"600",whiteSpace:"nowrap"}}>NOW</div>}<div style={{fontSize:"22px",marginBottom:"4px"}}>{EMOJI[c.rhythm]}</div><div style={{fontSize:"11px",fontWeight:"600",color}}>{LABEL[c.rhythm]}</div></div></div>);})}
       </div>
     </div>
-    <SectionTitle>✦ 魂のバランス</SectionTitle>
+    <div style={{fontSize:"10px",letterSpacing:"0.4em",color:MYST.gold,margin:"32px 0 16px",display:"flex",alignItems:"center",gap:"12px",opacity:0.9}}>✦ 魂のバランス<div style={{flex:1,height:"1px",background:`linear-gradient(90deg,${MYST.gold},transparent)`}}/></div>
     <div style={card}>
       {[{area:"行動",key:"仕事"},{area:"対人",key:"対人"},{area:"自立",key:"お金"},{area:"愛情",key:"愛情"},{area:"身体",key:"身体"}].map((item,i)=>{
         const val=result.balance[item.key]||0;
-        const gc=(idx)=>{if(idx>=val)return"rgba(212,170,64,0.1)";if(idx===0)return val===1?"#f5d060":val===2?"#ff9040":"#ff4040";if(idx===1)return val===2?"#ff9040":"#ff4040";return"#ff4040";};
-        return(<div key={i} style={{display:"flex",alignItems:"center",gap:"10px",padding:"10px 0",borderBottom:i<4?`1px solid rgba(212,170,64,0.12)`:"none"}}>
-          <div style={{fontSize:"13px",fontWeight:"400",color:"#4a3c28",width:"36px",flexShrink:0}}>{item.area}</div>
+        const gc=(idx)=>{if(idx>=val)return"rgba(255,255,255,0.08)";if(idx===0)return val===1?"#f5d060":val===2?"#ff9040":"#ff4040";if(idx===1)return val===2?"#ff9040":"#ff4040";return"#ff4040";};
+        return(<div key={i} style={{display:"flex",alignItems:"center",gap:"10px",padding:"10px 0",borderBottom:i<4?`1px solid ${MYST.border}`:"none"}}>
+          <div style={{fontSize:"13px",fontWeight:"400",color:MYST.text,width:"36px",flexShrink:0}}>{item.area}</div>
           <div style={{display:"flex",gap:"6px",flex:1}}>{[0,1,2].map(idx=><div key={idx} style={{flex:1,height:"28px",borderRadius:"8px",background:gc(idx),border:`1px solid ${gc(idx)}`}}/>)}</div>
           <div style={{fontSize:"11px",color:val===0?"#6090ff":val===1?"#f5d060":val<=2?"#ff9040":"#ff4040",width:"60px",flexShrink:0,textAlign:"right"}}>{val===0?"不足":val===1?"✦ ベスト":val===2?"多め":"過多"}</div>
         </div>);
       })}
+    </div>
     </div>
   </div>);
 }
@@ -449,15 +459,35 @@ export default function App(){
       mask-image: none !important;
     }
     .print-fit {
+      box-shadow: none !important;
+    }
+    .kr-outer {
+      background: #fdf8ee !important;
+      border: 1px solid #d4aa40 !important;
+      border-radius: 10px !important;
+      padding: 14px 16px !important;
+    }
+    .kr-outer > div:first-child {
+      display: none !important;
+    }
+    .kr-outer > div:last-child {
       column-count: 2;
       column-gap: 16px;
     }
-    .print-fit > * {
+    .kr-outer > div:last-child > * {
       break-inside: avoid;
       -webkit-column-break-inside: avoid;
     }
-    .print-fit *, .print-fit {
+    .kr-outer * {
+      color: #4a3c1e !important;
+      background: transparent !important;
+      border-color: #d4aa40 !important;
       box-shadow: none !important;
+    }
+    .kr-outer [style*="backdrop-filter"] {
+      background: #fbf3dc !important;
+      border: 1px solid #d4aa40 !important;
+      border-radius: 10px !important;
     }
     * { 
       -webkit-print-color-adjust: exact !important;
