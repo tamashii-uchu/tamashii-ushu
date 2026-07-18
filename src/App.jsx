@@ -462,23 +462,23 @@ export default function App(){
     * { 
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
-      font-size: 7.5pt !important;
-      line-height: 1.2 !important;
+      font-size: 10pt !important;
+      line-height: 1.3 !important;
       margin: 0 !important;
-      padding: 2px 4px !important;
+      padding: 3px 6px !important;
     }
     @page { 
       size: A4 portrait;
       margin: 6mm;
     }
-    h1, [style*="clamp(24"] { font-size: 14pt !important; }
-    [style*="clamp(20"] { font-size: 11pt !important; }
-    [style*="clamp(18"] { font-size: 10pt !important; }
-    [style*="clamp(16"] { font-size: 9pt !important; }
-    [style*="fontSize:"40"] { font-size: 18pt !important; }
-    [style*="fontSize:"32"] { font-size: 12pt !important; }
-    [style*="fontSize:"28"] { font-size: 11pt !important; }
-    [style*="fontSize:"22"] { font-size: 9pt !important; }
+    h1, [style*="clamp(24"] { font-size: 17pt !important; }
+    [style*="clamp(20"] { font-size: 14pt !important; }
+    [style*="clamp(18"] { font-size: 12pt !important; }
+    [style*="clamp(16"] { font-size: 11pt !important; }
+    [style*="fontSize:"40"] { font-size: 22pt !important; }
+    [style*="fontSize:"32"] { font-size: 15pt !important; }
+    [style*="fontSize:"28"] { font-size: 13pt !important; }
+    [style*="fontSize:"22"] { font-size: 11pt !important; }
     [style*="gap:"14"] { gap: 4px !important; }
     [style*="gap:"12"] { gap: 4px !important; }
     [style*="padding:"32"] { padding: 4px !important; }
