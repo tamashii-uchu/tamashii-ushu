@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 const ESS_CODE_TABLE={13:21,14:24,15:27,16:30,17:33,18:36,19:30,20:24,21:27,22:30,23:33,24:36,25:39,26:42,27:45,28:39,29:42,30:36,31:39,32:42,33:45,34:48,35:51,36:54,37:48,38:51,39:54,40:48,41:51,42:54,43:57,44:60,45:63,46:57,47:60,48:63,49:66,50:60,51:63,52:66,53:69,54:72,55:66,56:69,57:72,58:75};
 const TAMASHII_HONSHITSU={21:"創造溢れるパワー",24:"無限を生み出すパワー",27:"感性と知性のエネルギー",30:"守り抜く強靱のパワー",33:"強力な転換と変容のパワー",36:"周囲を照らす輝きのパワー",39:"伝え導く魔法のパワー",42:"時代を変える改革のパワー",45:"浄化と調和のエネルギー",48:"統合と絆のエネルギー",51:"成長と進化のエネルギー",54:"回復と再生のエネルギー",57:"磨き輝くエネルギー",60:"引き寄せのエネルギー",63:"防衛と正義のエネルギー",66:"高貴なる上昇のパワー",69:"秩序と管理のエネルギー",72:"清らかなるエネルギー",75:"不屈のパワー"};
 const KAMI_KEIJI={21:"地球への警告",24:"愛と改革",27:"時を超える美",30:"世界への貢献",33:"世界を動かす力",36:"創造のイマジネーション",39:"地球への警告",42:"愛と改革",45:"時を超える美",48:"世界への貢献",51:"世界を動かす力",54:"創造のイマジネーション",57:"地球への警告",60:"地球への警告",63:"地球への警告",66:"地球への警告",69:"地球への警告",72:"世界を動かす力",75:"世界への貢献"};
@@ -385,6 +385,33 @@ function CommAishoTab({C}){
 }
 
 export default function App(){
+  const printRef=useRef(null);
+  useEffect(()=>{
+    const fitToOnePage=()=>{
+      const el=printRef.current;
+      if(!el)return;
+      el.style.transform="none";
+      el.style.width="100%";
+      const contentHeight=el.scrollHeight;
+      const pageHeightPx=(297-12)*96/25.4; // A4 height minus 6mm top+bottom margins, at 96 CSS px/inch
+      const s=Math.min(1, pageHeightPx/contentHeight);
+      el.style.transform=`scale(${s})`;
+      el.style.transformOrigin="top left";
+      el.style.width=`${100/s}%`;
+    };
+    const resetScale=()=>{
+      const el=printRef.current;
+      if(!el)return;
+      el.style.transform="none";
+      el.style.width="100%";
+    };
+    window.addEventListener("beforeprint",fitToOnePage);
+    window.addEventListener("afterprint",resetScale);
+    return()=>{
+      window.removeEventListener("beforeprint",fitToOnePage);
+      window.removeEventListener("afterprint",resetScale);
+    };
+  },[]);
   const[timeMood]=useState(getTimeMood());
   const[showHome,setShowHome]=useState(true);
   const[activeTab,setActiveTab]=useState("kojin");
@@ -413,6 +440,18 @@ export default function App(){
     .print-header {
       background: white !important;
       box-shadow: none !important;
+    }
+    .print-header img {
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+    }
+    .print-fit {
+      column-count: 2;
+      column-gap: 16px;
+    }
+    .print-fit > * {
+      break-inside: avoid;
+      -webkit-column-break-inside: avoid;
     }
     * { 
       -webkit-print-color-adjust: exact !important;
@@ -445,10 +484,9 @@ export default function App(){
   }
 `}</style><div className="app-bg" style={{minHeight:"100vh",backgroundImage:`url(${TIME_BG_IMAGES[timeMood]})`,backgroundSize:"100% auto",backgroundRepeat:"repeat-y",backgroundPosition:"top center",backgroundAttachment:"scroll",transition:"background-image 1.2s ease",color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif",fontWeight:"400"}}>
     {showHome?(
-      <div style={{position:"relative",maxWidth:"460px",margin:"0 auto",padding:"0 0 60px"}}>
-        <div style={{width:"100vw",marginLeft:"calc(50% - 50vw)",marginRight:"calc(50% - 50vw)",overflow:"hidden"}}>
-          <img src={TIME_LOGOS[timeMood]} alt="宇宙星波学" style={{width:"100%",display:"block",WebkitMaskImage:"linear-gradient(to bottom, black 82%, transparent 100%)",maskImage:"linear-gradient(to bottom, black 82%, transparent 100%)"}}/>
-        </div>
+      <>
+        <img src={TIME_LOGOS[timeMood]} alt="宇宙星波学" style={{width:"100%",display:"block",WebkitMaskImage:"linear-gradient(to bottom, black 82%, transparent 100%)",maskImage:"linear-gradient(to bottom, black 82%, transparent 100%)"}}/>
+        <div style={{position:"relative",maxWidth:"460px",margin:"0 auto",padding:"0 0 60px"}}>
         <div style={{padding:"26px 22px 0"}}>
         {[
           {tab:"kojin",title:"個人鑑定",desc:"あなたの魂を知る"},
@@ -465,9 +503,10 @@ export default function App(){
           </button>
         ))}
         </div>
-      </div>
+        </div>
+      </>
     ):(<>
-    <div className="print-header" style={{textAlign:"center",padding:"0",position:"relative",overflow:"hidden",width:"100vw",marginLeft:"calc(50% - 50vw)",marginRight:"calc(50% - 50vw)"}}>
+    <div className="print-header" style={{textAlign:"center",padding:"0",position:"relative",overflow:"hidden"}}>
       <img src={TIME_LOGOS[timeMood]} alt="宇宙星波学" style={{width:"100%",display:"block",transition:"opacity 0.8s ease",WebkitMaskImage:"linear-gradient(to bottom, black 82%, transparent 100%)",maskImage:"linear-gradient(to bottom, black 82%, transparent 100%)"}}/>
     </div>
     <div className="no-print" style={{display:"flex",borderBottom:`1px solid ${C.borderGold}`,background:"#faf6ee",position:"sticky",top:0,zIndex:10}}>
@@ -477,7 +516,7 @@ export default function App(){
       <button style={tabStyle("comm_aisho")} onClick={()=>setActiveTab("comm_aisho")}>コミュ相性</button>
     </div>
     <div style={{maxWidth:"640px",margin:"0 auto",padding:"0 24px 80px"}}>
-      {activeTab==="kojin"&&<div><div className="no-print" style={{padding:"32px 0 24px"}}><InputForm onSubmit={handleKojin} buttonLabel="鑑 定 す る" accent={TIME_ACCENT[timeMood]}/></div>{kojinResult&&<div style={{opacity:kojinAnim?1:0,transform:kojinAnim?"translateY(0)":"translateY(20px)",transition:"all 0.5s ease"}}><KojinResult result={kojinResult}/><div style={{textAlign:"center",marginTop:"40px"}}><button onClick={()=>window.print()} style={{padding:"14px 32px",background:`linear-gradient(135deg,${TIME_ACCENT[timeMood].c1},${TIME_ACCENT[timeMood].c2})`,border:`1px solid ${TIME_ACCENT[timeMood].c1}`,borderRadius:"18px",color:TIME_ACCENT[timeMood].text,fontSize:"13px",letterSpacing:"0.3em",cursor:"pointer",fontFamily:"inherit"}}>✦ 鑑定書を印刷する</button></div></div>}</div>}
+      {activeTab==="kojin"&&<div><div className="no-print" style={{padding:"32px 0 24px"}}><InputForm onSubmit={handleKojin} buttonLabel="鑑 定 す る" accent={TIME_ACCENT[timeMood]}/></div>{kojinResult&&<div style={{opacity:kojinAnim?1:0,transform:kojinAnim?"translateY(0)":"translateY(20px)",transition:"all 0.5s ease"}}><div ref={printRef} className="print-fit"><KojinResult result={kojinResult}/></div><div style={{textAlign:"center",marginTop:"40px"}}><button onClick={()=>window.print()} style={{padding:"14px 32px",background:`linear-gradient(135deg,${TIME_ACCENT[timeMood].c1},${TIME_ACCENT[timeMood].c2})`,border:`1px solid ${TIME_ACCENT[timeMood].c1}`,borderRadius:"18px",color:TIME_ACCENT[timeMood].text,fontSize:"13px",letterSpacing:"0.3em",cursor:"pointer",fontFamily:"inherit"}}>✦ 鑑定書を印刷する</button></div></div>}</div>}
       {activeTab==="aisho"&&<div>
         {aishoStep===1&&<div style={{padding:"32px 0 24px"}}><div style={{textAlign:"center",marginBottom:"24px"}}><div style={{fontSize:"10px",color:C.gold,letterSpacing:"0.3em"}}>STEP 1 / 2</div><div style={{fontSize:"16px",color:C.text,marginTop:"8px"}}>あなたの情報を入力</div></div><InputForm onSubmit={handleAishoA} buttonLabel="次 へ →" accent={TIME_ACCENT[timeMood]}/></div>}
         {aishoStep===2&&<div style={{padding:"32px 0 24px"}}><div style={{textAlign:"center",marginBottom:"24px"}}><div style={{fontSize:"10px",color:C.gold,letterSpacing:"0.3em"}}>STEP 2 / 2</div><div style={{fontSize:"16px",color:C.text,marginTop:"8px"}}>お相手の情報を入力</div><div style={{marginTop:"8px",padding:"8px 16px",background:"rgba(200,168,74,0.1)",border:`1px solid ${C.borderGold}`,borderRadius:"18px",fontSize:"12px",color:C.muted}}>✓ {resultA?.name} さんの情報を受け取りました</div></div><InputForm onSubmit={handleAishoB} buttonLabel="相 性 を 診 断" accent={TIME_ACCENT[timeMood]}/><button onClick={resetAisho} style={{width:"100%",marginTop:"12px",padding:"12px",background:"transparent",border:`1px solid ${C.borderGold}`,borderRadius:"18px",color:C.muted,fontSize:"12px",cursor:"pointer",fontFamily:"inherit"}}>← 最初からやり直す</button></div>}
