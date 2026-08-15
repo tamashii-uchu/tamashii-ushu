@@ -203,7 +203,7 @@ function KojinResult({result}){
     <div style={card}>
       <div style={{fontSize:"10px",color:C.muted,marginBottom:"8px"}}>今世のテーマ</div>
       <div style={{fontSize:"clamp(20px,5vw,28px)",fontWeight:"700",color:C.teal}}>{result.konjoKadai}<span style={{color:C.purple,fontSize:"clamp(16px,4vw,22px)"}}>（{result.kadaiWord}）</span></div>
-      {result.shadowKonjoKadai&&<div style={{marginTop:"12px",paddingTop:"12px",borderTop:`1px solid rgba(212,170,64,0.2)`}}><div style={{fontSize:"10px",color:C.muted,marginBottom:"8px"}}>今世のテーマ（影）</div><div style={{fontSize:"clamp(16px,4vw,22px)",fontWeight:"700",color:C.teal}}>{result.shadowKonjoKadai}<span style={{color:C.purple}}>（{result.shadowKadaiWord}）</span></div></div>}
+      {result.shadowKonjoKadai&&<div style={{marginTop:"12px",paddingTop:"12px",borderTop:`1px solid rgba(212,170,64,0.2)`}}><div style={{fontSize:"10px",color:C.muted,marginBottom:"8px"}}>今世のテーマ（Starseed）</div><div style={{fontSize:"clamp(16px,4vw,22px)",fontWeight:"700",color:C.teal}}>{result.shadowKonjoKadai}<span style={{color:C.purple}}>（{result.shadowKadaiWord}）</span></div></div>}
       <div style={{marginTop:"16px"}}><div style={{display:"flex",justifyContent:"space-between",fontSize:"11px",color:C.muted,marginBottom:"6px"}}><span>魂の年齢</span><span style={{fontSize:"14px",fontWeight:"600",color:C.accent}}>{result.tamashiiAge}歳</span></div><div style={{height:"4px",background:"#ede0c0",borderRadius:"2px",overflow:"hidden"}}><div style={{height:"100%",width:`${result.wavePct}%`,background:`linear-gradient(90deg,${C.goldDim},${C.goldLight})`}}/></div></div>
     </div>
     <SectionTitle>✦ 基本資質</SectionTitle>
@@ -222,7 +222,7 @@ function KojinResult({result}){
       </div>
     </div>
     <div style={{...card,padding:"0"}}>
-      {[{label:"魂の個性",value:result.kishitsu.join(" / "),color:C.text},{label:"魂の基準",value:result.tokusei.join(" / "),color:C.text},{label:"インナーチャイルド",value:result.kanjo.map(k=>INNER_CHILD_SOLUTION[k]||k).join(" / "),color:C.pink},...(result.hasShadow?[{label:"無 / 影",value:`無(${result.muVal}) / 影(${result.shadowVal})`,color:C.muted}]:[])].map((row,i,arr)=>(
+      {[{label:"魂の個性",value:result.kishitsu.join(" / "),color:C.text},{label:"魂の基準",value:result.tokusei.join(" / "),color:C.text},{label:"インナーチャイルド",value:result.kanjo.map(k=>INNER_CHILD_SOLUTION[k]||k).join(" / "),color:C.pink},...(result.hasShadow?[{label:"Starseed",value:`Starseed`,color:C.muted}]:[])].map((row,i,arr)=>(
         <div key={i} style={{display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:i<arr.length-1?`1px solid rgba(212,170,64,0.15)`:"none"}}>
           <div style={{fontSize:"10px",color:C.muted,letterSpacing:"0.15em",width:"120px",flexShrink:0}}>{row.label}</div>
           <div style={{fontSize:"14px",fontWeight:"600",color:row.color,flex:1}}>{row.value}</div>
