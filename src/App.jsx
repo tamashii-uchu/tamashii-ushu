@@ -418,29 +418,22 @@ export default function App(){
     * { 
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
-      font-size: 7.5pt !important;
-      line-height: 1.3 !important;
     }
     @page { 
       size: A4 portrait;
       margin: 6mm;
     }
-    h1, [style*="clamp(24"] { font-size: 14pt !important; }
-    [style*="clamp(20"] { font-size: 11pt !important; }
-    [style*="clamp(18"] { font-size: 10pt !important; }
-    [style*="clamp(16"] { font-size: 9pt !important; }
-    [style*="fontSize:"40"] { font-size: 18pt !important; }
-    [style*="fontSize:"32"] { font-size: 12pt !important; }
-    [style*="fontSize:"28"] { font-size: 11pt !important; }
-    [style*="fontSize:"22"] { font-size: 9pt !important; }
-    [style*="gap:"14"] { gap: 4px !important; }
-    [style*="gap:"12"] { gap: 4px !important; }
-    [style*="padding:"32"] { padding: 4px !important; }
-    [style*="padding:"22"] { padding: 6px !important; }
-    [style*="marginBottom:"14"] { margin-bottom: 4px !important; }
-    [style*="marginTop:"40"] { margin-top: 6px !important; }
-    [style*="height:"4px"] { height: 2px !important; }
-    svg { width: 80px !important; height: 40px !important; }
+    .print-content {
+      column-count: 2;
+      column-gap: 8mm;
+      font-size: 8pt !important;
+      line-height: 1.35 !important;
+    }
+    .print-content > div > div {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    .print-content h1 { font-size: 13pt !important; }
   }
 `}</style><div className="app-bg" style={{minHeight:"100vh",backgroundImage:`url(${TIME_BG_IMAGES[timeMood]})`,backgroundSize:"100% auto",backgroundRepeat:"repeat-y",backgroundPosition:"top center",transition:"background-image 1.2s ease",color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif",fontWeight:"400"}}>
     {showHome?(
@@ -474,7 +467,7 @@ export default function App(){
       <button style={tabStyle("comm_aisho")} onClick={()=>setActiveTab("comm_aisho")}>コミュ相性</button>
     </div>
     <div style={{maxWidth:"640px",margin:"0 auto",padding:"0 24px 80px"}}>
-      {activeTab==="kojin"&&<div><div className="no-print" style={{padding:"32px 0 24px"}}><InputForm onSubmit={handleKojin} buttonLabel="鑑 定 す る" accent={TIME_ACCENT[timeMood]}/></div>{kojinResult&&<div style={{opacity:kojinAnim?1:0,transform:kojinAnim?"translateY(0)":"translateY(20px)",transition:"all 0.5s ease"}}><KojinResult result={kojinResult}/><div style={{textAlign:"center",marginTop:"40px"}}><button onClick={()=>window.print()} style={{padding:"14px 32px",background:`linear-gradient(135deg,${TIME_ACCENT[timeMood].c1},${TIME_ACCENT[timeMood].c2})`,border:`1px solid ${TIME_ACCENT[timeMood].c1}`,borderRadius:"18px",color:TIME_ACCENT[timeMood].text,fontSize:"13px",letterSpacing:"0.3em",cursor:"pointer",fontFamily:"inherit"}}>✦ 鑑定書を印刷する</button></div></div>}</div>}
+      {activeTab==="kojin"&&<div><div className="no-print" style={{padding:"32px 0 24px"}}><InputForm onSubmit={handleKojin} buttonLabel="鑑 定 す る" accent={TIME_ACCENT[timeMood]}/></div>{kojinResult&&<div className="print-content" style={{opacity:kojinAnim?1:0,transform:kojinAnim?"translateY(0)":"translateY(20px)",transition:"all 0.5s ease"}}><KojinResult result={kojinResult}/><div className="no-print" style={{textAlign:"center",marginTop:"40px"}}><button onClick={()=>window.print()} style={{padding:"14px 32px",background:`linear-gradient(135deg,${TIME_ACCENT[timeMood].c1},${TIME_ACCENT[timeMood].c2})`,border:`1px solid ${TIME_ACCENT[timeMood].c1}`,borderRadius:"18px",color:TIME_ACCENT[timeMood].text,fontSize:"13px",letterSpacing:"0.3em",cursor:"pointer",fontFamily:"inherit"}}>✦ 鑑定書を印刷する</button></div></div>}</div>}
       {activeTab==="aisho"&&<div>
         {aishoStep===1&&<div style={{padding:"32px 0 24px"}}><div style={{textAlign:"center",marginBottom:"24px"}}><div style={{fontSize:"10px",color:C.gold,letterSpacing:"0.3em"}}>STEP 1 / 2</div><div style={{fontSize:"16px",color:C.text,marginTop:"8px"}}>あなたの情報を入力</div></div><InputForm onSubmit={handleAishoA} buttonLabel="次 へ →" accent={TIME_ACCENT[timeMood]}/></div>}
         {aishoStep===2&&<div style={{padding:"32px 0 24px"}}><div style={{textAlign:"center",marginBottom:"24px"}}><div style={{fontSize:"10px",color:C.gold,letterSpacing:"0.3em"}}>STEP 2 / 2</div><div style={{fontSize:"16px",color:C.text,marginTop:"8px"}}>お相手の情報を入力</div><div style={{marginTop:"8px",padding:"8px 16px",background:"rgba(200,168,74,0.1)",border:`1px solid ${C.borderGold}`,borderRadius:"18px",fontSize:"12px",color:C.muted}}>✓ {resultA?.name} さんの情報を受け取りました</div></div><InputForm onSubmit={handleAishoB} buttonLabel="相 性 を 診 断" accent={TIME_ACCENT[timeMood]}/><button onClick={resetAisho} style={{width:"100%",marginTop:"12px",padding:"12px",background:"transparent",border:`1px solid ${C.borderGold}`,borderRadius:"18px",color:C.muted,fontSize:"12px",cursor:"pointer",fontFamily:"inherit"}}>← 最初からやり直す</button></div>}
