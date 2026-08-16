@@ -419,9 +419,7 @@ export default function App(){
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
       font-size: 7.5pt !important;
-      line-height: 1.2 !important;
-      margin: 0 !important;
-      padding: 2px 4px !important;
+      line-height: 1.3 !important;
     }
     @page { 
       size: A4 portrait;
