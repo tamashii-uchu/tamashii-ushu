@@ -414,6 +414,15 @@ export default function App(){
     .print-header {
       background: white !important;
       box-shadow: none !important;
+      max-height: 25mm !important;
+      overflow: hidden !important;
+    }
+    .print-header img {
+      max-height: 25mm !important;
+      width: auto !important;
+      object-fit: contain !important;
+      margin: 0 auto !important;
+      display: block !important;
     }
     * { 
       -webkit-print-color-adjust: exact !important;
@@ -435,7 +444,7 @@ export default function App(){
     }
     .print-content h1 { font-size: 13pt !important; }
   }
-`}</style><div className="app-bg" style={{minHeight:"100vh",backgroundImage:`url(${TIME_BG_IMAGES[timeMood]})`,backgroundSize:"100% auto",backgroundRepeat:"repeat-y",backgroundPosition:"top center",transition:"background-image 1.2s ease",color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif",fontWeight:"400"}}>
+`}</style><div className="app-bg" style={{minHeight:"100vh",backgroundImage:`url(${TIME_BG_IMAGES[timeMood]})`,backgroundSize:"100% auto",backgroundRepeat:"repeat-y",backgroundPosition:"center",transition:"background-image 1.2s ease",color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif",fontWeight:"400"}}>
     {showHome?(
       <div style={{position:"relative",maxWidth:"460px",margin:"0 auto",padding:"0 0 60px"}}>
         <img src={TIME_LOGOS[timeMood]} alt="宇宙星波学" style={{width:"100%",height:"220px",objectFit:"cover",display:"block"}}/>
@@ -458,7 +467,7 @@ export default function App(){
       </div>
     ):(<>
     <div className="print-header" style={{textAlign:"center",padding:"0",position:"relative",overflow:"hidden"}}>
-      <img src={TIME_LOGOS[timeMood]} alt="宇宙星波学" style={{width:"100%",display:"block"}}/>
+      <img src={TIME_LOGOS[timeMood]} alt="宇宙星波学" style={{width:"100%",maxHeight:"260px",objectFit:"cover",display:"block",margin:"0 auto"}}/>
     </div>
     <div className="no-print" style={{display:"flex",borderBottom:`1px solid ${C.borderGold}`,background:"#faf6ee",position:"sticky",top:0,zIndex:10}}>
       <button onClick={()=>setShowHome(true)} style={{padding:"14px 16px",background:"transparent",border:"none",borderRight:`1px solid ${C.borderGold}`,color:C.muted,fontSize:"16px",cursor:"pointer"}}>←</button>
