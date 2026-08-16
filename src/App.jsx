@@ -258,7 +258,7 @@ function KojinResult({result}){
       </div>
     </div>
     <div style={{...card,padding:"0"}}>
-      {[{label:"魂の個性",value:result.kishitsu.join(" / "),color:C.text},{label:"魂の基準",value:result.tokusei.join(" / "),color:C.text},{label:"インナーチャイルド",value:result.kanjo.map(k=>INNER_CHILD_SOLUTION[k]||k).join(" / "),color:C.pink},...(result.hasShadow?[{label:"スターシード",value:`宇宙由来の魂（無${result.muVal} / 影${result.shadowVal}）`,color:C.muted}]:[])].map((row,i,arr)=>(
+      {[{label:"魂の個性",value:result.kishitsu.join(" / "),color:C.text},{label:"魂の基準",value:result.tokusei.join(" / "),color:C.text},{label:"インナーチャイルド",value:result.kanjo.map(k=>INNER_CHILD_SOLUTION[k]||k).join(" / "),color:C.pink},...(result.hasShadow?[{label:"",value:"スターシード",color:C.muted}]:[])].map((row,i,arr)=>(
         <div key={i} style={{display:"flex",alignItems:"center",padding:"14px 20px",borderBottom:i<arr.length-1?`1px solid rgba(212,170,64,0.15)`:"none"}}>
           <div style={{fontSize:"10px",color:C.muted,letterSpacing:"0.15em",width:"120px",flexShrink:0}}>{row.label}</div>
           <div style={{fontSize:"14px",fontWeight:"400",color:row.color,flex:1}}>{row.value}</div>
