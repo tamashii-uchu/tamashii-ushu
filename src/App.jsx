@@ -432,11 +432,16 @@ export default function App(){
       size: A4 portrait;
       margin: 6mm;
     }
+    .content-wrapper {
+      max-width: none !important;
+      padding: 0 !important;
+    }
     .print-content {
       column-count: 2;
-      column-gap: 8mm;
-      font-size: 8pt !important;
-      line-height: 1.35 !important;
+      column-gap: 6mm;
+      font-size: 8.5pt !important;
+      line-height: 1.4 !important;
+      zoom: 0.85;
     }
     .print-content > div > div {
       break-inside: avoid;
@@ -475,7 +480,7 @@ export default function App(){
       <button style={tabStyle("aisho")} onClick={()=>setActiveTab("aisho")}>相性診断</button>
       <button style={tabStyle("comm_aisho")} onClick={()=>setActiveTab("comm_aisho")}>コミュ相性</button>
     </div>
-    <div style={{maxWidth:"640px",margin:"0 auto",padding:"0 24px 80px"}}>
+    <div className="content-wrapper" style={{maxWidth:"640px",margin:"0 auto",padding:"0 24px 80px"}}>
       {activeTab==="kojin"&&<div><div className="no-print" style={{padding:"32px 0 24px"}}><InputForm onSubmit={handleKojin} buttonLabel="鑑 定 す る" accent={TIME_ACCENT[timeMood]}/></div>{kojinResult&&<div className="print-content" style={{opacity:kojinAnim?1:0,transform:kojinAnim?"translateY(0)":"translateY(20px)",transition:"all 0.5s ease"}}><KojinResult result={kojinResult}/><div className="no-print" style={{textAlign:"center",marginTop:"40px"}}><button onClick={()=>window.print()} style={{padding:"14px 32px",background:`linear-gradient(135deg,${TIME_ACCENT[timeMood].c1},${TIME_ACCENT[timeMood].c2})`,border:`1px solid ${TIME_ACCENT[timeMood].c1}`,borderRadius:"18px",color:TIME_ACCENT[timeMood].text,fontSize:"13px",letterSpacing:"0.3em",cursor:"pointer",fontFamily:"inherit"}}>✦ 鑑定書を印刷する</button></div></div>}</div>}
       {activeTab==="aisho"&&<div>
         {aishoStep===1&&<div style={{padding:"32px 0 24px"}}><div style={{textAlign:"center",marginBottom:"24px"}}><div style={{fontSize:"10px",color:C.gold,letterSpacing:"0.3em"}}>STEP 1 / 2</div><div style={{fontSize:"16px",color:C.text,marginTop:"8px"}}>あなたの情報を入力</div></div><InputForm onSubmit={handleAishoA} buttonLabel="次 へ →" accent={TIME_ACCENT[timeMood]}/></div>}
