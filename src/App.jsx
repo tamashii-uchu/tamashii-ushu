@@ -451,15 +451,16 @@ export default function App(){
     @media screen and (max-width: 430px) {
       .print-content {
         zoom: 1;
-        transform: scale(0.62);
+        transform: scale(0.52);
         transform-origin: top left;
-        width: 161% !important;
-        column-gap: 4mm;
-        font-size: 7pt !important;
-        line-height: 1.3 !important;
+        width: 192% !important;
+        column-gap: 3mm;
+        font-size: 6.5pt !important;
+        line-height: 1.2 !important;
       }
       .print-header {
-        max-height: 18mm !important;
+        max-height: 15mm !important;
+        overflow: hidden !important;
       }
     }
   }
