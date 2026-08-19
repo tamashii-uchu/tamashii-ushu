@@ -438,18 +438,30 @@ export default function App(){
     }
     .print-content {
       column-count: 2;
-      column-gap: 6mm;
-      font-size: 8.5pt !important;
-      line-height: 1.4 !important;
-      transform: scale(0.85);
-      transform-origin: top left;
-      width: 117% !important;
+      column-gap: 4mm;
+      font-size: 8pt !important;
+      line-height: 1.3 !important;
+      zoom: 0.78;
     }
     .print-content > div > div {
       break-inside: avoid;
       page-break-inside: avoid;
     }
     .print-content h1 { font-size: 13pt !important; }
+    @media screen and (max-width: 430px) {
+      .print-content {
+        zoom: 1;
+        transform: scale(0.62);
+        transform-origin: top left;
+        width: 161% !important;
+        column-gap: 4mm;
+        font-size: 7pt !important;
+        line-height: 1.3 !important;
+      }
+      .print-header {
+        max-height: 18mm !important;
+      }
+    }
   }
 `}</style><div className="app-bg" style={{minHeight:"100vh",backgroundImage:`url(${TIME_BG_IMAGES[timeMood]})`,backgroundSize:"100% auto",backgroundRepeat:"repeat-y",backgroundPosition:"center",transition:"background-image 1.2s ease",color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif",fontWeight:"400"}}>
     {showHome?(
