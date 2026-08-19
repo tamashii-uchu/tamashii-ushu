@@ -438,18 +438,18 @@ export default function App(){
     }
     .print-content {
       column-count: 2;
-      column-gap: 6mm;
-      font-size: 8.5pt !important;
-      line-height: 1.4 !important;
-      transform: scale(0.85);
+      column-gap: 4mm;
+      font-size: 7pt !important;
+      line-height: 1.3 !important;
+      transform: scale(0.68);
       transform-origin: top left;
-      width: 117% !important;
+      width: 147% !important;
     }
     .print-content > div > div {
       break-inside: avoid;
       page-break-inside: avoid;
     }
-    .print-content h1 { font-size: 13pt !important; }
+    .print-content h1 { font-size: 11pt !important; }
   }
 `}</style><div className="app-bg" style={{minHeight:"100vh",backgroundImage:`url(${TIME_BG_IMAGES[timeMood]})`,backgroundSize:"100% auto",backgroundRepeat:"repeat-y",backgroundPosition:"center",transition:"background-image 1.2s ease",color:C.text,fontFamily:"'Georgia','Yu Mincho','Noto Serif JP',serif",fontWeight:"400"}}>
     {showHome?(
